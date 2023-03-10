@@ -8,14 +8,14 @@ window.resizable(width=False, height=False)
 
 def select_image():
     filename = fd.askopenfilename(
-        mode="r",
+        title="Select an image",
         initialdir="/",
         )
     
-    load = Image.open(filename)
-    img = ImageTk.PhotoImage(load)
-    lbl_image = tk.Label(image=img)
+    img = ImageTk.PhotoImage(Image.open(filename))
+    lbl_image = tk.Label()
     lbl_image.grid(row=0, column=0)
+    lbl_image.image = img
 
 frm_buttons = tk.Frame(master=window)
 
