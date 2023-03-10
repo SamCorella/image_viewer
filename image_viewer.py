@@ -13,7 +13,7 @@ def select_image():
         )
     
     img = ImageTk.PhotoImage(Image.open(filename))
-    lbl_image = tk.Label()
+    lbl_image = tk.Label(master=window, image=img)
     lbl_image.grid(row=0, column=0)
     lbl_image.image = img
 
