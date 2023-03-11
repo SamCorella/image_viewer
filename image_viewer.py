@@ -13,7 +13,7 @@ def open_image():
     global cursor
     filename = fd.askopenfilename(
         title="Select an image",
-        initialdir="/Users/samc/Pictures",
+        initialdir="/",
         )
 
     img = ImageTk.PhotoImage(Image.open(filename))
