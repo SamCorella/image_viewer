@@ -23,7 +23,9 @@ def open_image():
 
 def display_image(img):
     lbl_image = tk.Label(image=img)
-    lbl_image.grid(row=0, column=0)
+    lbl_image.grid(row=1, column=0)
+    lbl_index = tk.Label(text=f"{cursor + 1} / {len(images)}")
+    lbl_index.grid(row=0, column=0)
 
 def next_image():
     global cursor
@@ -39,7 +41,8 @@ def previous_image():
         lbl_image.grid_forget()
         display_image(images[cursor])
 
-lbl_image = tk.Label()
+lbl_index = tk.Label()
+lbl_image = tk.Label(text="Display an image here!", width=15, height=15)
 frm_buttons = tk.Frame(master=window)
 
 btn_back = tk.Button(
@@ -60,7 +63,9 @@ btn_forward = tk.Button(
     command=next_image,
     )
 
-frm_buttons.grid(row=1, column=0)
+lbl_index.grid(row=0, column=0)
+lbl_image.grid(row=1, column=0)
+frm_buttons.grid(row=2, column=0)
 btn_back.grid(row=0, column=0)
 btn_addImage.grid(row=0, column=1)
 btn_forward.grid(row=0, column=2)
