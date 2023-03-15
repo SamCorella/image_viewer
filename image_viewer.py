@@ -16,29 +16,39 @@ def open_image():
         initialdir="/",
         )
 
-    img = ImageTk.PhotoImage(Image.open(filename))
+    file = Image.open(filename)
+
+    if file.width > 1000:
+        file = file.resize((1000, file.height * 1000 // file.width))
+    elif file.height > 1000:
+        file = file.resize((file.width * 1000 // file.height, 1000))
+
+    img = ImageTk.PhotoImage(file)
     images.append(img)
     cursor = len(images) - 1
     display_image(img)
 
 def display_image(img):
+    global lbl_image
+
+    if len(images) > 1:
+        lbl_image.grid_forget()
+
     lbl_image = tk.Label(image=img)
     lbl_image.grid(row=1, column=0)
     lbl_index = tk.Label(text=f"{cursor + 1} / {len(images)}")
     lbl_index.grid(row=0, column=0)
 
-def next_image():
+def forward():
     global cursor
     if cursor < len(images) - 1:
         cursor += 1
-        lbl_image.grid_forget()
         display_image(images[cursor])
 
-def previous_image():
+def back():
     global cursor
     if cursor > 0:
         cursor -= 1
-        lbl_image.grid_forget()
         display_image(images[cursor])
 
 lbl_index = tk.Label()
@@ -48,7 +58,7 @@ frm_buttons = tk.Frame(master=window)
 btn_back = tk.Button(
     master=frm_buttons,
     text="<<",
-    command=previous_image,
+    command=back,
     )
 
 btn_addImage = tk.Button(
@@ -60,7 +70,7 @@ btn_addImage = tk.Button(
 btn_forward = tk.Button(
     master=frm_buttons,
     text=">>",
-    command=next_image,
+    command=forward,
     )
 
 lbl_index.grid(row=0, column=0)
